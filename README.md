@@ -18,4 +18,4 @@ var port = gocrazy.Getenv("PORT", "3000")
 
 ## License
 
-MIT
+[MIT](./LICENSE.md)
