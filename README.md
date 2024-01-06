@@ -13,7 +13,7 @@ go get github.com/danawoodman/gocrazy
 ```go
 import "github.com/danawoodman/gocrazy"
 
-var port = gocrazy.GetEnv("PORT", "3000")
+var port = gocrazy.Getenv("PORT", "3000")
 ```
 
 ## License
