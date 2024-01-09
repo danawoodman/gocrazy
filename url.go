@@ -15,6 +15,10 @@ func AppendQueryParams(u *url.URL, paramData any) *url.URL {
 		val = val.Elem()
 	}
 
+	if val.IsZero() {
+		return u
+	}
+
 	typ := val.Type()
 	for i := 0; i < val.NumField(); i++ {
 		field := typ.Field(i)
