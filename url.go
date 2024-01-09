@@ -18,9 +18,16 @@ func AppendQueryParams(u *url.URL, paramData any) *url.URL {
 	typ := val.Type()
 	for i := 0; i < val.NumField(); i++ {
 		field := typ.Field(i)
+		fieldValue := val.Field(i)
+
+		// Skip zero values
+		if fieldValue.IsZero() {
+			continue
+		}
+
 		name := field.Tag.Get("url")
 		if name != "" {
-			q.Set(name, fmt.Sprintf("%v", val.Field(i).Interface()))
+			q.Set(name, fmt.Sprintf("%v", fieldValue.Interface()))
 		}
 	}
 	u.RawQuery = q.Encode()
