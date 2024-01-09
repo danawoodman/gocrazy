@@ -15,7 +15,7 @@ func AppendQueryParams(u *url.URL, paramData any) *url.URL {
 		val = val.Elem()
 	}
 
-	if val.IsZero() {
+	if val == reflect.Zero(val.Type()) {
 		return u
 	}
 
