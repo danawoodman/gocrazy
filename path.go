@@ -6,8 +6,8 @@ import (
 	"strings"
 )
 
-// ExpandPath expands a path that starts with `~` or `$HOME` to the user's home directory.
-func ExpandPath(path string) (string, error) {
+// ExpandHome expands a path that starts with `~` or `$HOME` to the user's home directory.
+func ExpandHome(path string) (string, error) {
 	if strings.HasPrefix(path, "~/") {
 		home, err := os.UserHomeDir()
 		if err != nil {
