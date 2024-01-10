@@ -31,9 +31,18 @@ Append query params to a url.
 ```go
 import "github.com/danawoodman/gocrazy"
 
-var url = gocrazy.AppendQueryParams("https://example.com", map[string]string{
-	"foo": "bar",
-})
+params := struct {
+	Foo string `url:"foo"` // use url tag to specify param name
+	Bar string `json:"bar"` // fallback to json tag
+	Baz string `url:"-"` // omit
+	Bang string // fallback to field name "Bang"
+}{
+	Foo: "foo",
+	Bar: "bar",
+	Baz: "baz",
+	Bang: "bang",
+}
+var url = gocrazy.AppendQueryParams("https://example.com", params)
 ```
 
 ### File paths
