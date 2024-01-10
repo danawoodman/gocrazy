@@ -6,6 +6,8 @@ import (
 	"reflect"
 )
 
+// AppendQueryParams appends the values from the struct to the URL.
+// The struct must have a `url` tag on each field that should be appended to the URL.
 func AppendQueryParams(u *url.URL, paramData any) *url.URL {
 	q := u.Query()
 	val := reflect.ValueOf(paramData)
