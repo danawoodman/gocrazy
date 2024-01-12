@@ -29,20 +29,24 @@ var port = gocrazy.Getenv("PORT", "3000")
 Append query params to a url.
 
 ```go
+package main
+
 import "github.com/danawoodman/gocrazy"
 
-params := struct {
-	Foo string `url:"foo"` // use url tag to specify param name
-	Bar string `json:"bar"` // fallback to json tag
-	Baz string `url:"-"` // omit
-	Bang string // fallback to field name "Bang"
-}{
-	Foo: "foo",
-	Bar: "bar",
-	Baz: "baz",
-	Bang: "bang",
+func main() {
+	params := struct {
+		Foo string `url:"foo"` // use url tag to specify param name
+		Bar string `json:"bar"` // fallback to json tag
+		Baz string `url:"-"` // omit
+		Bang string // fallback to field name "Bang"
+	}{
+		Foo: "foo",
+		Bar: "bar",
+		Baz: "baz",
+		Bang: "bang",
+	}
+	url := gocrazy.AppendQueryParams("https://example.com", params)
 }
-var url = gocrazy.AppendQueryParams("https://example.com", params)
 ```
 
 ### File paths
@@ -52,9 +56,35 @@ var url = gocrazy.AppendQueryParams("https://example.com", params)
 Expand a path that starts with `~` or `$HOME` to the current user's home directory.
 
 ```go
+package main
+
 import "github.com/danawoodman/gocrazy"
 
 var path = gocrazy.ExpandHome("~/foo/bar")
+```
+
+### Maps
+
+#### `gocrazy.GetNestedField(m, path)`
+
+```golang
+package main
+
+import "github.com/danawoodman/gocrazy"
+
+func main() {
+	m := map[string]interface{}{
+		"foo": map[string]interface{}{
+			"bar": map[string]interface{}{
+				"baz": "hello",
+			},
+		},
+	}
+
+	val, ok := GetNestedField(m, "foo.bar.baz")
+	// val == "hello"
+	// ok == true
+}
 ```
 
 ## Development
