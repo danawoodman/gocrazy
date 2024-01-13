@@ -68,6 +68,7 @@ func TestGetNestedField(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
+			t.Parallel()
 			val, ok := gocrazy.GetNestedField(tt.input.obj, tt.input.path)
 			if val != tt.want.val {
 				t.Errorf("Expected %s, got %s", tt.want.val, val)
