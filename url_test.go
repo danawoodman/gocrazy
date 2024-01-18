@@ -13,7 +13,6 @@ func TestAppendQueryParams(t *testing.T) {
 		input any
 		want  string
 	}{
-		// the table itself
 		{"handle nil", nil, "https://example.com"},
 		{
 			"handle simple struct",
@@ -94,7 +93,7 @@ func TestAppendQueryParams(t *testing.T) {
 			"https://example.com?exported=a",
 		},
 	}
-	// The execution loop
+
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			t.Parallel()
