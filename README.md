@@ -67,7 +67,7 @@ var path = gocrazy.ExpandHome("~/foo/bar")
 
 #### `gocrazy.GetNestedField(m, path)`
 
-```golang
+```go
 package main
 
 import "github.com/danawoodman/gocrazy"
@@ -81,9 +81,38 @@ func main() {
 		},
 	}
 
-	val, ok := GetNestedField(m, "foo.bar.baz")
+	val, ok := gocrazy.GetNestedField(m, "foo.bar.baz")
 	// val == "hello"
 	// ok == true
+}
+```
+
+### Intervals
+
+#### `gocrazy.ExecuteAtInterval(fn, interval, intervalChan)`
+
+```go
+package main
+
+import (
+	"fmt"
+	"github.com/danawoodman/gocrazy"
+)
+
+func main() {
+	interval := 1 * time.Second
+	intervalChan := make(chan time.Duration)
+	go gocrazy.ExecuteAtInterval(func() {
+		fmt.Println("Executing function at interval...")
+	}, interval, intervalChan)
+
+	time.Sleep(5 * time.Second)
+
+	// Update interval after some time
+	intervalChan <- 2 * time.Second
+
+	// keep the program running
+	select {}
 }
 ```
 
